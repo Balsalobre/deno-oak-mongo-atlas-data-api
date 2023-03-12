@@ -1,0 +1,155 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "TEST MONGOATLAS DATA API",
+    "dateExported": "2023-03-12T21:07:04.264Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "b537eb48-e988-432a-9719-87d9306d359e",
+            "colId": "84ae3882-eacf-445e-821d-7ab7108eaeb2",
+            "containerId": "",
+            "name": "RESTAURANT BY NAME",
+            "url": "http://localhost:3000/api/v1/restaurant?name=Manhem Club",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-03-11T23:29:18.610Z",
+            "modified": "2023-03-11T23:29:18.610Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "Manhem Club",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "24f7f04b-143b-4323-8ad3-244ecdd86778",
+            "colId": "84ae3882-eacf-445e-821d-7ab7108eaeb2",
+            "containerId": "",
+            "name": "TEN FIRST RESTAURANTS",
+            "url": "http://localhost:3000/api/v1/restaurants",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-03-11T23:30:08.088Z",
+            "modified": "2023-03-12T11:33:16.496Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "672f2501-d1b5-4ce9-8035-0d72c2f78e3b",
+            "colId": "84ae3882-eacf-445e-821d-7ab7108eaeb2",
+            "containerId": "",
+            "name": "FIND ONE TEST API DATA COLLECTION",
+            "url": "https://eu-west-2.aws.data.mongodb-api.com/app/data-pjcrk/endpoint/data/v1/action/findOne",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-12T12:38:04.475Z",
+            "modified": "2023-03-12T12:40:29.530Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "<set-your-api-key>"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"collection\": \"restaurants\",\n  \"database\": \"sample_restaurants\",\n  \"dataSource\": \"eu-ireland\",\n  \"projection\": {\n    \"_id\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3e5b3cf5-7682-4d20-b0f5-dc3021b1eeb7",
+            "colId": "84ae3882-eacf-445e-821d-7ab7108eaeb2",
+            "containerId": "",
+            "name": "COUNT API DATA COLLECTION",
+            "url": "https://eu-west-2.aws.data.mongodb-api.com/app/data-pjcrk/endpoint/data/v1/action/aggregate",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-03-12T12:41:37.417Z",
+            "modified": "2023-03-12T20:38:47.058Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "<set-your-api-key>"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"collection\": \"restaurants\",\n  \"database\": \"sample_restaurants\",\n  \"dataSource\": \"eu-ireland\",\n  \"pipeline\": [\n    {\n      \"$facet\": {\n        \"result\": [\n          {\n            \"$skip\": 0\n          },\n          {\n            \"$limit\": 10\n          }\n        ],\n        \"count\": [\n          {\n            \"$count\": \"total\"\n          }\n        ]\n      }\n    },\n    {\n      \"$project\": {\n        \"result\": 1,\n        \"count\": {\n          \"$arrayElemAt\": [\n            \"$count.total\",\n            0\n          ]\n        }\n      }\n    }\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e5229109-9f72-437b-9733-61e22c3bb824",
+            "colId": "84ae3882-eacf-445e-821d-7ab7108eaeb2",
+            "containerId": "",
+            "name": "COUNT API DATA COLLECTION BY NAME",
+            "url": "https://eu-west-2.aws.data.mongodb-api.com/app/data-pjcrk/endpoint/data/v1/action/aggregate",
+            "method": "POST",
+            "sortNum": 45000,
+            "created": "2023-03-12T20:37:20.853Z",
+            "modified": "2023-03-12T20:49:29.812Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "<set-your-api-key>"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"collection\": \"restaurants\",\n  \"database\": \"sample_restaurants\",\n  \"dataSource\": \"eu-ireland\",\n  \"pipeline\": [\n    {\n      \"$match\": {\n        \"name\": {\n          \"$regex\": \"deli\",\n          \"$options\": \"i\"\n        }\n      }\n    },\n    {\n      \"$facet\": {\n        \"result\": [\n          {\n            \"$skip\": 0\n          },\n          {\n            \"$limit\": 1\n          }\n        ],\n        \"count\": [\n          {\n            \"$count\": \"total\"\n          }\n        ]\n      }\n    },\n    {\n      \"$project\": {\n        \"result\": 1,\n        \"count\": {\n          \"$arrayElemAt\": [\n            \"$count.total\",\n            0\n          ]\n        }\n      }\n    }\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "aaa03b04-e86f-4c9f-9c25-d8dfc01623d4",
+            "colId": "84ae3882-eacf-445e-821d-7ab7108eaeb2",
+            "containerId": "",
+            "name": "FIND ONE WITH LIMIT",
+            "url": "https://eu-west-2.aws.data.mongodb-api.com/app/data-pjcrk/endpoint/data/v1/action/find",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-12T20:07:23.705Z",
+            "modified": "2023-03-12T20:21:03.542Z",
+            "headers": [
+                {
+                    "name": "api-key",
+                    "value": "<set-your-api-key>"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/ejson"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"collection\": \"restaurants\",\n  \"database\": \"sample_restaurants\",\n  \"dataSource\": \"eu-ireland\",\n  \"sort\": { \"name\": 1 },\n  \"limit\": 1,\n  \"skip\": 0\n}\n",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
